@@ -1,0 +1,60 @@
+﻿@model MobileShopping.Entity.Mobile
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@using (Html.BeginForm("Create", "Mobile", FormMethod.Post))
+{
+    <table>
+        <tr>
+            <td>
+                @Html.LabelFor(Model => Model.BrandName, "Brand name")
+            </td>
+            <td>
+                @Html.TextBoxFor(Model => Model.BrandName)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(Model => Model.Id, "Id")
+            </td>
+            <td>
+                @Html.TextBoxFor(Model => Model.Id)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(Model => Model.MobileModel, "Model")
+            </td>
+            <td>
+                @Html.TextBoxFor(Model => Model.MobileModel)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(Model => Model.Color, "Color")
+            </td>
+            <td>
+                @Html.TextBoxFor(Model => Model.Color)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(Model => Model.Price, "Price")
+            </td>
+            <td>
+                @Html.TextBoxFor(Model => Model.Price)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="Submit"/>
+            </td>
+            <td>
+                <a href="~/Mobile">Back</a>
+            </td>
+        </tr>
+    </table>
+}
+

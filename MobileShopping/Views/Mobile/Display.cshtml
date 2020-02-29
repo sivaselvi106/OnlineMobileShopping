@@ -1,0 +1,45 @@
+﻿@model IEnumerable<MobileShopping.Entity.Mobile>
+
+@{
+    ViewBag.Title = "Display";
+}
+
+<h2>Display</h2>
+@Html.ActionLink("Create new mobile", "Create")
+<br />
+@if (TempData["Message"] != null)
+{
+    @Html.Label((string)TempData["Message"])
+}
+<table border="1">
+    <tr>
+        @*<th>@Html.LabelFor(model => model.BrandName, "BrandName")</th>
+        <th>@Html.LabelFor(model => model.Id, "Id")</th>
+        <th>@Html.LabelFor(model => model.MobileModel, "MobileModel")</th>
+        <th>@Html.LabelFor(model => model.Color, "Color")</th>
+        <th>@Html.LabelFor(model => model.Price, "Price")</th>*@
+            <th>@Html.Label("Brand Name")</th>
+            <th>@Html.Label("Mobile Id")</th>
+            <th>@Html.Label("Model")</th>
+            <th>@Html.Label("Color")</th>
+            <th>@Html.Label("Price")</th>
+            <th>@Html.Label("Action")</th>
+    </tr>
+    @foreach (MobileShopping.Entity.Mobile mobile in Model)
+    {
+        <tr>
+            <td>@mobile.BrandName</td>
+            <td>@mobile.Id</td>
+            <td>@mobile.MobileModel</td>
+            <td>@mobile.Color</td>
+            <td>@mobile.Price</td>
+            <td>
+                @Html.ActionLink("Edit /", "Edit", new { id = mobile.Id })
+                @Html.ActionLink("Delete", "Delete", new { id = mobile.Id })
+            </td>
+        </tr>
+    }
+</table>
+
+
+
