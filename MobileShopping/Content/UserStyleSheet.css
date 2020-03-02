@@ -79,7 +79,7 @@
     width:100%;
     margin-bottom:5%;
 }
-.LoginPage input[type="text"], input[type="password"] {
+.LoginPage input[type="text"], .LoginPage input[type="password"] {
     border: none;
     width: 100%;
     border-bottom: 1px solid #fff;
@@ -87,7 +87,7 @@
     height: 10%;
     color: #fff;
 }
-    .LoginPage input[type="text"], input[type="password"] :active {
+    .LoginPage input[type="text"], .LoginPage input[type="password"] :active {
         border: none;
         width: 100%;
         border-bottom: 1px solid #fff;
@@ -112,4 +112,29 @@
 }
 .ForgotPassword,.RegisterUser{
     padding:3%;
+}
+.SignUpPage{
+    margin-top:3%;
+}
+.SignUpTble th,td{
+    padding:1%;
+}
+
+.LblSignUp {
+    font-weight:bold;
+}
+.TxtSignUp {
+    border: none;
+    width: 100%;
+    background-color: rgb(255,228,196);
+    padding:3%;
+}
+.SignUpBtn{
+    padding-right:10%;
+    color:darkblue;
+    background-color:orange;
+}
+.SignUpBtn:hover{
+    background-color:forestgreen;
+    padding-right:10%;
 }

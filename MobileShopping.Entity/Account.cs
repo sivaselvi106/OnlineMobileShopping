@@ -11,8 +11,8 @@ namespace MobileShopping.Entity
     {
         
         [Required]
-        [RegularExpression("^[a-zA-Z][a-zA-Z\\s]+$")]
-        [MinLength(4),MaxLength(20)]
+        [RegularExpression("^[a-zA-Z][a-zA-Z\\s]+$",ErrorMessage ="Not a valid name")]
+        [MinLength(4),MaxLength(25)]
         public string UserName { get; set; }
         
         [Key]
@@ -25,7 +25,7 @@ namespace MobileShopping.Entity
         public string MailId { get; set; }
        
         [Required]
-        [MaxLength(10)]
+        [MinLength(10)]
         public string Password { get; set; }
 
         public DateTime CreateDate { get; set; }
