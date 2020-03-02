@@ -3,57 +3,20 @@
 @{
     ViewBag.Title = "Login";
 }
-<link href="~/Content/MobileShopping.css" rel="stylesheet" />
-
-<h2 style="text-align:center">Welcome to Login Page</h2>
-@using (Html.BeginForm("Login", "Account", FormMethod.Get))
+<link href="~/Content/UserStyleSheet.css" rel="stylesheet" />
+@using (Html.BeginForm("Login", "Account", FormMethod.Post))
 {
-    <div class="LblLogin">
-        <ul class="Loginul">
-            <li>
-                @Html.LabelFor(model => model.MailId)
-
-            </li>
-            <li>
-                @Html.LabelFor(model => model.Password)
-            </li>
-        </ul>
-    </div>
-    <div class="TxtLogin">
-        <ul class="Loginul">
-            <li >
-                @Html.TextBoxFor(model => model.MailId)
-            </li>
-            <li>
-                @Html.PasswordFor(model => model.Password)
-            </li>
-        </ul>
-    </div>
-    <div class="ValidateLogin">
-        @Html.ValidationMessageFor(model => model.MailId)
-        @Html.ValidationMessageFor(model => model.Password)
-    </div>
-    @*<table border="1" align="center">
-            <tr>
-                <td> @Html.LabelFor(model => model.MailId)</td>
-                <td>
-                    @Html.TextBoxFor(model => model.MailId)
-                    @Html.ValidationMessageFor(model => model.MailId)
-                </td>
-            </tr>
-            <tr>
-                <td> @Html.LabelFor(model => model.Password)</td>
-
-                <td>
-                    @Html.TextBoxFor(model => model.Password)
-                    @Html.ValidationMessageFor(model => model.Password)
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="submit" value="Login" />
-                </td>
-            </tr>
-        </table>*@
+<div class="LoginPage">
+    <img src="~/Content/icons8-account-30.png" class="loginImage" />
+    <h1 class="LoginTitle">Login Here</h1>
+    <div class="LblLogin">@Html.LabelFor(model => model.MailId)</div>
+    <div class="TxtLogin">@Html.TextBoxFor(model => model.MailId)</div>
+    <div class="ValidateLogin">@Html.ValidationMessageFor(model => model.MailId)</div>
+    <div class="LblLogin">@Html.LabelFor(model => model.Password)</div>
+    <div class="TxtLogin">@Html.PasswordFor(model => model.Password, new { @maxlength = "16" })</div>
+    <div class="ValidateLogin">@Html.ValidationMessageFor(model => model.Password)</div>
+    <div class="Submit"><input type="submit" value="Login" /></div>
+    <div class="ForgotPassword">@Html.ActionLink("Forgot Password?", "SignUp", "Account", null, new { @class = "Link" })</div>
+    <div class="RegisterUser">@Html.ActionLink("New User? Register", "SignUp", "Account",null,new { @class = "Link"})</div>
+</div>
 }
-

@@ -41,12 +41,12 @@ namespace MobileShopping.Controllers
         [HttpPost]
         public ActionResult Login(Account account)
         {
-            Account user = new Account();
-            TryUpdateModel(user);
-            if (account.MailId.Equals(user.MailId) && account.Password.Equals(user.Password))
-            {
-                return RedirectToAction("Display");
-            }
+            //Account user = new Account();
+            //TryUpdateModel(user);
+            //if (account.MailId.Equals(user.MailId) && account.Password.Equals(user.Password))
+            //{
+            //    return RedirectToAction("Display");
+            //}
             return View();
         }
        public ActionResult EditUser([Bind(Exclude = "UserId,MailId,CreateDate")] Account user)

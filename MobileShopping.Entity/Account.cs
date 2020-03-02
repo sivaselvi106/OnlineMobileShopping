@@ -25,7 +25,7 @@ namespace MobileShopping.Entity
         public string MailId { get; set; }
        
         [Required]
-        [MinLength(8),MaxLength(10)]
+        [MaxLength(10)]
         public string Password { get; set; }
 
         public DateTime CreateDate { get; set; }

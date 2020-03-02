@@ -4,13 +4,13 @@
     ViewBag.Title = "SignUp";
 }
 
+<link href="~/Content/UserStyleSheet.css" rel="stylesheet" />
 <h2 style="text-align:center;">SignUp</h2>
 
 @using (Html.BeginForm("SignUp", "Account", FormMethod.Post))
 {
     <table align="center" ;>
         <tr>
-
             <td>@Html.LabelFor(model => model.UserName)</td>
             <td>@Html.TextBoxFor(model => model.UserName)</td>
             <td style="color:red">@Html.ValidationMessageFor(model => model.UserName)
@@ -63,7 +63,6 @@
         </tr>
         <tr>
             <td><input type="submit" value="SignUp" /></td>
-            <td><a href="~/Mobile">Login</a></td>
         </tr>
     </table>
 }
