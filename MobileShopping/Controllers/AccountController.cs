@@ -7,6 +7,11 @@ namespace MobileShopping.Controllers
 {
     public class AccountController : Controller
     {
+        AccountRepository accountRepository;
+        public AccountController()
+        {
+            accountRepository = new AccountRepository();
+        }
         [HttpGet]
         [ActionName("SignUp")]
         public ActionResult SignUp()
@@ -17,23 +22,22 @@ namespace MobileShopping.Controllers
         [ActionName("SignUp")]
         public ActionResult SignUp_Post(SignUpModel signUpModel)
         {
-            Account user = new Account();
-            user.UserName = signUpModel.UserName;
-            user.UserId = signUpModel.UserId;
-            user.MailId = signUpModel.MailId;
-            user.Password = signUpModel.Password;
-            user.MobileNo = signUpModel.MobileNo;
-            user.CreateDate = signUpModel.CreateDate;
-            user.UpdatedDate = signUpModel.UpdatedDate;
-            user.LastLoginTime = signUpModel.LastLoginTime;
-            user.Gender = signUpModel.Gender;
-            user.Age = signUpModel.Age;
-            user.City = signUpModel.City;
-           
-            TryUpdateModel(user);
+            //TryUpdateModel(user);
             if (ModelState.IsValid)
             {
-                //accountRepository.AddUser(user);
+                Account user = new Account();
+                user.UserName = signUpModel.UserName;
+                user.UserId = signUpModel.UserId;
+                user.MailId = signUpModel.MailId;
+                user.Password = signUpModel.Password;
+                user.MobileNo = signUpModel.MobileNo;
+                user.CreateDate = signUpModel.CreateDate;
+                user.UpdatedDate = signUpModel.UpdatedDate;
+                user.LastLoginTime = signUpModel.LastLoginTime;
+                user.Gender = signUpModel.Gender;
+                user.Age = signUpModel.Age;
+                user.City = signUpModel.City;
+               // accountRepository.AddUser(user);
                 TempData["Message"] = "User added successfully!!!";
                 return RedirectToAction("Login");
             }
@@ -48,11 +52,12 @@ namespace MobileShopping.Controllers
         [HttpPost]
         public ActionResult Login(LoginModel loginModel)
         {
+            //TryUpdateModel(user);
             if (ModelState.IsValid)
             {
-                Account account = new Account();
-                account.MailId = loginModel.MailId;
-                account.Password = loginModel.Password;
+                Account user = new Account();
+                user.MailId = loginModel.MailId;
+                user.Password = loginModel.Password;
             }
             return View();
         }
