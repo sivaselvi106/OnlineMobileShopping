@@ -1,17 +1,12 @@
 ﻿using System.Web.Mvc;
 using MobileShopping.Entity;
 using MobileShopping.Repository;
+using MobileShopping.Models;
 
 namespace MobileShopping.Controllers
 {
     public class AccountController : Controller
     {
-        AccountRepository accountRepository;
-        public AccountController()
-        {
-            accountRepository = new AccountRepository();
-        }
-     
         [HttpGet]
         [ActionName("SignUp")]
         public ActionResult SignUp()
@@ -20,13 +15,25 @@ namespace MobileShopping.Controllers
         }
         [HttpPost]
         [ActionName("SignUp")]
-        public ActionResult SignUp_Post()
+        public ActionResult SignUp_Post(SignUpModel signUpModel)
         {
             Account user = new Account();
+            user.UserName = signUpModel.UserName;
+            user.UserId = signUpModel.UserId;
+            user.MailId = signUpModel.MailId;
+            user.Password = signUpModel.Password;
+            user.MobileNo = signUpModel.MobileNo;
+            user.CreateDate = signUpModel.CreateDate;
+            user.UpdatedDate = signUpModel.UpdatedDate;
+            user.LastLoginTime = signUpModel.LastLoginTime;
+            user.Gender = signUpModel.Gender;
+            user.Age = signUpModel.Age;
+            user.City = signUpModel.City;
+           
             TryUpdateModel(user);
             if (ModelState.IsValid)
             {
-                accountRepository.AddUser(user);
+                //accountRepository.AddUser(user);
                 TempData["Message"] = "User added successfully!!!";
                 return RedirectToAction("Login");
             }
@@ -39,14 +46,14 @@ namespace MobileShopping.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Login(Account account)
+        public ActionResult Login(LoginModel loginModel)
         {
-            //Account user = new Account();
-            //TryUpdateModel(user);
-            //if (account.MailId.Equals(user.MailId) && account.Password.Equals(user.Password))
-            //{
-            //    return RedirectToAction("Display");
-            //}
+            if (ModelState.IsValid)
+            {
+                Account account = new Account();
+                account.MailId = loginModel.MailId;
+                account.Password = loginModel.Password;
+            }
             return View();
         }
        public ActionResult EditUser([Bind(Exclude = "UserId,MailId,CreateDate")] Account user)

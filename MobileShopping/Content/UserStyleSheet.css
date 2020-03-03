@@ -87,7 +87,7 @@
     height: 10%;
     color: #fff;
 }
-    .LoginPage input[type="text"], .LoginPage input[type="password"] :active {
+ .LoginPage input[type="text"], .LoginPage input[type="password"] :active {
         border: none;
         width: 100%;
         border-bottom: 1px solid #fff;
@@ -95,7 +95,7 @@
 .LoginPage input[type="submit"] {
     border: none;
     outline: none;
-    height: 5%;
+    height: 7%;
     background: rgb(255,228,196);
     color: #000;
     font-size: 18px;
