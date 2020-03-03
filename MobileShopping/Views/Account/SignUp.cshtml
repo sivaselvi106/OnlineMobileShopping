@@ -15,7 +15,7 @@
             <td>@Html.LabelFor(model => model.UserName, null, new { @class = "LblSignUp" })</td>
             <td>@Html.TextBoxFor(model => model.UserName, null, new { @class = "TxtSignUp" })</td>
             <td style="color:red">
-                @Html.ValidationMessageFor(model => model.UserName)
+                @Html.ValidationMessageFor(model => model.UserName,"");
             </td>
         </tr>
         <tr>
