@@ -2,15 +2,16 @@
 using MobileShopping.Entity;
 using MobileShopping.Repository;
 using MobileShopping.Models;
+using System;
 
 namespace MobileShopping.Controllers
 {
     public class AccountController : Controller
     {
-        AccountRepository accountRepository;
+        //MobileDBContext accountRepository;
         public AccountController()
         {
-            accountRepository = new AccountRepository();
+            //accountRepository = new MobileDBContext();
         }
         [HttpGet]
         [ActionName("SignUp")]
@@ -37,7 +38,7 @@ namespace MobileShopping.Controllers
                 user.Gender = signUpModel.Gender;
                 user.Age = signUpModel.Age;
                 user.City = signUpModel.City;
-               // accountRepository.AddUser(user);
+                // accountRepository.AddUser(user);
                 TempData["Message"] = "User added successfully!!!";
                 return RedirectToAction("Login");
             }
@@ -61,9 +62,19 @@ namespace MobileShopping.Controllers
             }
             return View();
         }
-       public ActionResult EditUser([Bind(Exclude = "UserId,MailId,CreateDate")] Account user)
-        {
-            return RedirectToAction("Display");
-        }
+        //public ActionResult EditUser([Bind(Exclude = "UserId,MailId,CreateDate")] Account user)
+        //{
+        //    user.UserId = AccountRepository.accounts.Find(name => name.UserName == user.UserName).UserId;
+        //    user.MailId = AccountRepository.accounts.Find(name => name.UserName == user.UserName).MailId;
+        //    user.CreateDate = AccountRepository.accounts.Find(name => name.UserName == user.UserName).CreateDate;
+        //    user.UpdatedDate = DateTime.Now;
+        //    if (ModelState.IsValid)
+        //    {
+        //        accountRepository.UpdateUser(user);
+        //        TempData["Message"] = "User details edited successfully";
+        //        return RedirectToAction("Display");
+        //    }
+        //    return View(user);
+        //}
     }
 }

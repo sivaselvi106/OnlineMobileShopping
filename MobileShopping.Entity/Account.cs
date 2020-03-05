@@ -42,8 +42,8 @@ namespace MobileShopping.Entity
         [Required]
         //[Phone]
         // [RegularExpression(@"^([789]\d{9})$", ErrorMessage = "Invalid Mobile Number.")]
-        [DataType(DataType.PhoneNumber)]
-        [RegularExpression(@"^\(?([0-9]{2})[-. ]?([0-9]{4})[-. ]?([0-9]{3})[-. ]?([0-9]{3})$", ErrorMessage = "Not a valid Phone number")]
+       // [DataType(DataType.PhoneNumber)]
+        //[RegularExpression(@"^\(?([0-9]{2})[-. ]?([0-9]{4})[-. ]?([0-9]{3})[-. ]?([0-9]{3})$", ErrorMessage = "Not a valid Phone number")]
         public long MobileNo { get; set; }
         public string City { get; set; }
 
