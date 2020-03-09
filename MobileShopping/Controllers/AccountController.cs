@@ -1,48 +1,64 @@
 ﻿using System.Web.Mvc;
 using MobileShopping.Entity;
-using MobileShopping.Repository;
+using MobileShopping.DAL;
 using MobileShopping.Models;
 using System;
+using MobileShopping.BL;
 
 namespace MobileShopping.Controllers
 {
     public class AccountController : Controller
     {
-        //MobileDBContext accountRepository;
-        public AccountController()
+        AccountBL accountBL = new AccountBL();
+       public ActionResult UserDetails()
         {
-            //accountRepository = new MobileDBContext();
+            //     AccountContext accountContext = new AccountContext();
+
+           //  List<SignUpModel> user = accountContext.AccountDB.ToList();
+            return View();
+        }
+        public ActionResult DisplayUsers(int userId)
+        {
+            AccountContext accountContext = new AccountContext();
+            Account user = accountContext.AccountDB.Find(userId);
+            return View(user);
         }
         [HttpGet]
-        [ActionName("SignUp")]
-        public ActionResult SignUp()
+       public ActionResult SignUp() 
         {
             return View();
         }
         [HttpPost]
-        [ActionName("SignUp")]
-        public ActionResult SignUp_Post(SignUpModel signUpModel)
+        
+        public ActionResult SignUp(SignUpModel signUpModel)
         {
-            //TryUpdateModel(user);
             if (ModelState.IsValid)
             {
-                Account user = new Account();
-                user.UserName = signUpModel.UserName;
-                user.UserId = signUpModel.UserId;
-                user.MailId = signUpModel.MailId;
-                user.Password = signUpModel.Password;
-                user.MobileNo = signUpModel.MobileNo;
-                user.CreateDate = signUpModel.CreateDate;
-                user.UpdatedDate = signUpModel.UpdatedDate;
-                user.LastLoginTime = signUpModel.LastLoginTime;
-                user.Gender = signUpModel.Gender;
-                user.Age = signUpModel.Age;
-                user.City = signUpModel.City;
-                // accountRepository.AddUser(user);
-                TempData["Message"] = "User added successfully!!!";
+                Account account = new Account();
+                account.UserName = signUpModel.UserName;
+                account.UserId = signUpModel.UserId;
+                account.MailId = signUpModel.MailId;
+                account.Password = signUpModel.Password;
+                account.MobileNo = signUpModel.MobileNo;
+                account.CreateDate = DateTime.Now;
+                account.UpdatedDate = signUpModel.UpdatedDate;
+                account.LastLoginTime = signUpModel.LastLoginTime;
+                account.Gender = signUpModel.Gender;
+                account.Age = signUpModel.Age;
+                account.City = signUpModel.City;
+                accountBL.SignUp(account);
+                //AccountContext accountContext = new AccountContext();
+                //accountContext.AccountDB.Add(account);
+                //accountContext.SaveChanges();
+                ViewBag.Message = "Successfully registered";
+                ModelState.Clear();
                 return RedirectToAction("Login");
             }
-            return View();
+            else
+            {
+                ModelState.AddModelError("", "Some error occurred");
+            return View(signUpModel);
+            }
         }
 
         [HttpGet]
@@ -53,28 +69,61 @@ namespace MobileShopping.Controllers
         [HttpPost]
         public ActionResult Login(LoginModel loginModel)
         {
-            //TryUpdateModel(user);
-            if (ModelState.IsValid)
-            {
                 Account user = new Account();
                 user.MailId = loginModel.MailId;
                 user.Password = loginModel.Password;
-            }
-            return View();
+                var result = accountBL.Login(user);
+                if (result != null)
+                {
+                    Session["MailId"] = result.MailId.ToString();
+                    Session["Password"] = result.Password.ToString();
+                    return View("DisplayUsers");
+                }
+                ViewBag.Message = string.Format("Mail Id and password is incorrect");
+                return View(user);
         }
-        //public ActionResult EditUser([Bind(Exclude = "UserId,MailId,CreateDate")] Account user)
-        //{
-        //    user.UserId = AccountRepository.accounts.Find(name => name.UserName == user.UserName).UserId;
-        //    user.MailId = AccountRepository.accounts.Find(name => name.UserName == user.UserName).MailId;
-        //    user.CreateDate = AccountRepository.accounts.Find(name => name.UserName == user.UserName).CreateDate;
-        //    user.UpdatedDate = DateTime.Now;
-        //    if (ModelState.IsValid)
-        //    {
-        //        accountRepository.UpdateUser(user);
-        //        TempData["Message"] = "User details edited successfully";
-        //        return RedirectToAction("Display");
-        //    }
-        //    return View(user);
-        //}
+        [HttpGet]
+        public ActionResult EditUser(int userId) //Edit
+        {
+            //user.UserId = AccountContext..Find(name => name.UserName == user.UserName).UserId;
+            //user.MailId = AccountRepository.accounts.Find(name => name.UserName == user.UserName).MailId;
+            //user.CreateDate = AccountRepository.accounts.Find(name => name.UserName == user.UserName).CreateDate;
+            AccountContext accountContext = new AccountContext();
+            Account user = accountContext.AccountDB.Find(userId);
+            return View(user);
+        }
+        public ActionResult UpdateUser(SignUpModel signUpModel)
+        {
+            Account user = new Account();
+            if (ModelState.IsValid)
+            {
+                AccountContext accountContext = new AccountContext();
+                user = accountContext.AccountDB.Find(signUpModel.UserId);
+                if(user != null)
+                {
+                    user.UserName = signUpModel.UserName;
+                 // user.UserId = signUpModel.UserId;
+                 //   user.MailId = signUpModel.MailId;
+                   // user.MobileNo = signUpModel.MobileNo;
+                    user.Gender = signUpModel.Gender;
+                    user.Age = signUpModel.Age;
+                    user.MobileNo = signUpModel.MobileNo;
+                    user.City = signUpModel.City;
+                    accountContext.SaveChanges();
+                    TempData["Message"] = "User details updated successfully";
+                    return RedirectToAction("UserDetails");
+                }
+            }
+            return View(user);
+        }
+        public ActionResult DeleteUser(int userId) //Delete
+        {
+            AccountContext accountContext = new AccountContext();
+            Account user = accountContext.AccountDB.Find(userId);
+            accountContext.AccountDB.Remove(user);
+            accountContext.SaveChanges();
+            TempData["Message"] = "User updated successfully";
+            return RedirectToAction("Display");
+        }
     }
 }

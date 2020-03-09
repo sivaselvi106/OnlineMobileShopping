@@ -26,10 +26,10 @@ namespace MobileShopping.Models
         [MinLength(10)]
         public string Password { get; set; }
 
-        public DateTime CreateDate { get; set; }
+        public DateTime? CreateDate { get; set; }
 
-        public DateTime UpdatedDate { get; set; }
-        public DateTime LastLoginTime { get; set; }
+        public DateTime? UpdatedDate { get; set; }
+        public DateTime? LastLoginTime { get; set; }
 
         [Range(1, 100, ErrorMessage = "Age Should be min 1 and max 100")]
         public int Age { get; set; }
@@ -41,6 +41,5 @@ namespace MobileShopping.Models
         [RegularExpression(@"^([789]\d{9})$", ErrorMessage = "Invalid Mobile Number.")]
         public long MobileNo { get; set; }
         public string City { get; set; }
-
     }
 }

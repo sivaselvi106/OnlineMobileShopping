@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using MobileShopping.Repository;
+using MobileShopping.DAL;
 using MobileShopping.Entity;
 
 namespace MobileShopping.Controllers

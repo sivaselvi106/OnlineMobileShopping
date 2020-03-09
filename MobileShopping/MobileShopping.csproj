@@ -132,7 +132,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Context\MobileDBContext.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\MobileController.cs" />
     <Compile Include="Global.asax.cs">
@@ -151,6 +150,9 @@
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
     <Content Include="Views\Shared\_UserLayoutPage.cshtml" />
+    <Content Include="Views\Account\EditUser.cshtml" />
+    <Content Include="Views\Account\DisplayUsers.cshtml" />
+    <Content Include="Views\Account\UserDetails.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -162,13 +164,17 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MobileShopping.BL\MobileShopping.BL.csproj">
+      <Project>{64ff135a-19e0-47d9-8c0a-0217c392d8f6}</Project>
+      <Name>MobileShopping.BL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MobileShopping.Entity\MobileShopping.Entity.csproj">
       <Project>{c4af224a-9c02-4aad-a64f-6e3e28e77fb6}</Project>
       <Name>MobileShopping.Entity</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MobileShopping.Repository\MobileShopping.Repository.csproj">
+    <ProjectReference Include="..\MobileShopping.Repository\MobileShopping.DAL.csproj">
       <Project>{48fe2b43-3bd7-4a08-af44-4ab18460e7aa}</Project>
-      <Name>MobileShopping.Repository</Name>
+      <Name>MobileShopping.DAL</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

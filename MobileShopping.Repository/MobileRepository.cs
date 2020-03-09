@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MobileShopping.Entity;
 
-namespace MobileShopping.Repository
+namespace MobileShopping.DAL
 {
     public class MobileRepository
     {
