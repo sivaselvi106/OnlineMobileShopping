@@ -127,7 +127,7 @@
     <Content Include="Web.config" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Mobile\Create.cshtml" />
-    <Content Include="Views\Mobile\Edit.cshtml" />
+    <Content Include="Views\Mobile\EditMobile.cshtml" />
     <Content Include="Views\Mobile\Display.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -137,7 +137,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AccountDeleteViewModel.cs" />
+    <Compile Include="Models\AccountDisplayViewModel.cs" />
+    <Compile Include="Models\AccountEditViewModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\MobileViewModel.cs" />
     <Compile Include="Models\SignUpModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

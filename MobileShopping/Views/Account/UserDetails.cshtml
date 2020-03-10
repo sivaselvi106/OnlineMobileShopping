@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MobileShopping.Models.SignUpModel>
+﻿@model IEnumerable<MobileShopping.Models.AccountDisplayViewModel>
 
 <p>
     @Html.ActionLink("Display", "UserDetails")
@@ -26,10 +26,11 @@
     <td>@Html.DisplayFor(model => user.Age)</td>
     <td>@Html.DisplayFor(model => user.MobileNo)</td>
     <td>@Html.DisplayFor(model => user.City)</td>
-        <td>
-            @Html.ActionLink("Edit", "EditUser") |
-            @Html.ActionLink("Delete","DeleteUser")
-        </td>
+    <td>
+        @Html.ActionLink("Edit", "EditUser") |
+        @Html.ActionLink("Delete", "DeleteUser")|
+        @Html.ActionLink("Display", "DisplayUsers")
+    </td>
     </tr>
     }
 </table>

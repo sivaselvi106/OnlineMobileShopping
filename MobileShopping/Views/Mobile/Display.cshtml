@@ -18,26 +18,40 @@
         <th>@Html.LabelFor(model => model.MobileModel, "MobileModel")</th>
         <th>@Html.LabelFor(model => model.Color, "Color")</th>
         <th>@Html.LabelFor(model => model.Price, "Price")</th>*@
-            <th>@Html.Label("Brand Name")</th>
-            <th>@Html.Label("Mobile Id")</th>
-            <th>@Html.Label("Model")</th>
-            <th>@Html.Label("Color")</th>
-            <th>@Html.Label("Price")</th>
-            <th>@Html.Label("Action")</th>
+        <th>@Html.Label("Brand Name")</th>
+        <th>@Html.Label("Mobile Id")</th>
+        <th>@Html.Label("Model")</th>
+        <th>@Html.Label("BatteryCapacity")</th>
+        <th>@Html.Label("DisplaySize")</th>
+        <th>@Html.Label("Pixel")</th>
+        <th>@Html.Label("Processor")</th>
+        <th>@Html.Label("RAM")</th>
+        <th>@Html.Label("Slimness")</th>
+        <th>@Html.Label("Storage")</th>
+        <th>@Html.Label("Color")</th>
+        <th>@Html.Label("Price")</th>
+        <th>@Html.Label("Action")</th>
     </tr>
-    @foreach (MobileShopping.Entity.Mobile mobile in Model)
+    @foreach (var mobile in Model)
     {
-        <tr>
-            <td>@mobile.BrandName</td>
-            <td>@mobile.Id</td>
-            <td>@mobile.MobileModel</td>
-            <td>@mobile.Color</td>
-            <td>@mobile.Price</td>
-            <td>
-                @Html.ActionLink("Edit /", "Edit", new { id = mobile.Id })
-                @Html.ActionLink("Delete", "Delete", new { id = mobile.Id })
-            </td>
-        </tr>
+<tr>
+    <td>@mobile.BrandName</td>
+    <td>@mobile.Id</td>
+    <td>@mobile.MobileModel</td>
+    <td>@mobile.BatteryCapacity</td>
+    <td>@mobile.DisplaySize</td>
+    <td>@mobile.Pixel</td>
+    <td>@mobile.Processor</td>
+    <td>@mobile.RAM</td>
+    <td>@mobile.Slimness</td>
+    <td>@mobile.Storage</td>
+    <td>@mobile.Color</td>
+    <td>@mobile.Price</td>
+    <td>
+        @Html.ActionLink("Edit /", "EditMobile", new { id = mobile.Id })
+        @Html.ActionLink("Delete", "Delete", new { id = mobile.Id })
+    </td>
+</tr>
     }
 </table>
 

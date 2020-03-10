@@ -5,42 +5,51 @@ using System.Text;
 using System.Threading.Tasks;
 using MobileShopping.Entity;
 
+
 namespace MobileShopping.DAL
 {
     public class MobileRepository
     {
-        public static List<Mobile> mobiles = new List<Mobile>();
-        static MobileRepository()
+        public void Create(Mobile mobile)
         {
-            mobiles.Add(new Mobile { BrandName = "Samsung", MobileModel = "A50", Id = 1, Color = "Blue", Price = 15000 });
-            mobiles.Add(new Mobile { BrandName = "Redmi", MobileModel = "Note5 Pro", Id = 2, Color = "White", Price = 10000 });
-            mobiles.Add(new Mobile { BrandName = "Moto", MobileModel = "G4+", Id = 3, Color = "Blue", Price = 9000 });
+            using (AccountContext accountContext = new AccountContext())
+            {
+                accountContext.MobileDB.Add(mobile);
+                accountContext.SaveChanges();
+            }
         }
-        public IEnumerable<Mobile> GetMobileDetails()
-        {
-            return mobiles;
-        }
-        public void AddMobile(Mobile mobile)
-        {
-            mobiles.Add(mobile);
-        }
+       
         public Mobile GetMobileId(int mobileId)
         {
-            return mobiles.Find(id => id.Id == mobileId);
-        }
-        public void DeleteMobile(int mobileId)
-        {
-            Mobile mobile = GetMobileId(mobileId);
-            if (mobile != null)
-                mobiles.Remove(mobile);
+            using (AccountContext accountContext = new AccountContext())
+            {
+               Mobile mobile =  accountContext.MobileDB.Find(mobileId);
+                return mobile;
+            }
+           // return mobiles.Find(id => id.Id == mobileId);
         }
         public void UpdateMobile(Mobile mobile)
         {
-            Mobile updateMobile = GetMobileId(mobile.Id);
-            updateMobile.BrandName = mobile.BrandName;
-            updateMobile.Color = mobile.Color;
-            updateMobile.MobileModel = mobile.MobileModel;
-            updateMobile.Price = mobile.Price;
+            using(AccountContext accountContext = new AccountContext())
+            {
+                accountContext.SaveChanges();
+            }
+        }
+        public void DeleteMobile(Mobile mobile)
+        {
+            using (AccountContext accountContext = new AccountContext())
+            {
+                accountContext.MobileDB.Remove(mobile);
+                accountContext.SaveChanges();
+            }
+        }
+        public IEnumerable<Mobile> DisplayMobile()
+        {
+            using (AccountContext accountContext = new AccountContext())
+            {
+                IEnumerable<Mobile> mobile =accountContext.MobileDB.ToList();
+                return mobile;
+            }
         }
     }
 }

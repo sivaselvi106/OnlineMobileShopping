@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
 
-namespace MobileShopping.Entity
+namespace MobileShopping.Models
 {
-    public class Mobile
+    public class MobileViewModel
     {
         [Required]
         public string BrandName { get; set; }
@@ -16,7 +15,6 @@ namespace MobileShopping.Entity
         public int Id { get; set; }
         [Required]
         public string MobileModel { get; set; }
-        [Required]
         public string Processor { get; set; }
         [Required]
         public byte RAM { get; set; }
@@ -30,6 +28,7 @@ namespace MobileShopping.Entity
         public string Pixel { get; set; }
         [Required]
         public string BatteryCapacity { get; set; }
+        [Required]
         public string Color { get; set; }
         [Required]
         public double Price { get; set; }

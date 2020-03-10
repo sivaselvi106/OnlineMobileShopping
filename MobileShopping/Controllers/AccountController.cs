@@ -4,27 +4,32 @@ using MobileShopping.DAL;
 using MobileShopping.Models;
 using System;
 using MobileShopping.BL;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MobileShopping.Controllers
 {
     public class AccountController : Controller
     {
         AccountBL accountBL = new AccountBL();
-       public ActionResult UserDetails()
+        public ActionResult UserDetails()
         {
-            //     AccountContext accountContext = new AccountContext();
-
-           //  List<SignUpModel> user = accountContext.AccountDB.ToList();
-            return View();
+            using (AccountContext accountContext = new AccountContext())
+            {
+                List<Account> user = accountContext.AccountDB.ToList();
+                return View(user);
+            }
         }
         public ActionResult DisplayUsers(int userId)
         {
-            AccountContext accountContext = new AccountContext();
-            Account user = accountContext.AccountDB.Find(userId);
-            return View(user);
+            using (AccountContext accountContext = new AccountContext())
+            {
+                Account user = accountContext.AccountDB.Find(userId);
+                return View(user);
+            }
         }
         [HttpGet]
-       public ActionResult SignUp() 
+        public ActionResult SignUp()
         {
             return View();
         }
@@ -41,15 +46,12 @@ namespace MobileShopping.Controllers
                 account.Password = signUpModel.Password;
                 account.MobileNo = signUpModel.MobileNo;
                 account.CreateDate = DateTime.Now;
-                account.UpdatedDate = signUpModel.UpdatedDate;
-                account.LastLoginTime = signUpModel.LastLoginTime;
+                account.UpdatedDate = DateTime.Now;
+                account.LastLoginTime = DateTime.Now;
                 account.Gender = signUpModel.Gender;
                 account.Age = signUpModel.Age;
                 account.City = signUpModel.City;
                 accountBL.SignUp(account);
-                //AccountContext accountContext = new AccountContext();
-                //accountContext.AccountDB.Add(account);
-                //accountContext.SaveChanges();
                 ViewBag.Message = "Successfully registered";
                 ModelState.Clear();
                 return RedirectToAction("Login");
@@ -57,10 +59,9 @@ namespace MobileShopping.Controllers
             else
             {
                 ModelState.AddModelError("", "Some error occurred");
-            return View(signUpModel);
+                return View(signUpModel);
             }
         }
-
         [HttpGet]
         public ActionResult Login()
         {
@@ -69,61 +70,51 @@ namespace MobileShopping.Controllers
         [HttpPost]
         public ActionResult Login(LoginModel loginModel)
         {
-                Account user = new Account();
-                user.MailId = loginModel.MailId;
-                user.Password = loginModel.Password;
-                var result = accountBL.Login(user);
-                if (result != null)
-                {
-                    Session["MailId"] = result.MailId.ToString();
-                    Session["Password"] = result.Password.ToString();
-                    return View("DisplayUsers");
-                }
-                ViewBag.Message = string.Format("Mail Id and password is incorrect");
-                return View(user);
+            Account user = new Account();
+            user.MailId = loginModel.MailId;
+            user.Password = loginModel.Password;
+            var result = accountBL.Login(user);
+            if (result != null)
+            {
+                Session["MailId"] = result.MailId.ToString();
+                Session["Password"] = result.Password.ToString();
+                return View("DisplayUsers");
+            }
+            ViewBag.Message = string.Format("Mail Id and password is incorrect");
+            return View(user);
         }
         [HttpGet]
-        public ActionResult EditUser(int userId) //Edit
+        public ActionResult EditUser(string mailId) //Edit
         {
-            //user.UserId = AccountContext..Find(name => name.UserName == user.UserName).UserId;
-            //user.MailId = AccountRepository.accounts.Find(name => name.UserName == user.UserName).MailId;
-            //user.CreateDate = AccountRepository.accounts.Find(name => name.UserName == user.UserName).CreateDate;
-            AccountContext accountContext = new AccountContext();
-            Account user = accountContext.AccountDB.Find(userId);
+            Account user = accountBL.GetUserId(mailId);
             return View(user);
         }
-        public ActionResult UpdateUser(SignUpModel signUpModel)
+        [HttpPost]
+        public ActionResult UpdateUser(AccountEditViewModel accountEditViewModel)
         {
-            Account user = new Account();
             if (ModelState.IsValid)
             {
-                AccountContext accountContext = new AccountContext();
-                user = accountContext.AccountDB.Find(signUpModel.UserId);
-                if(user != null)
-                {
-                    user.UserName = signUpModel.UserName;
-                 // user.UserId = signUpModel.UserId;
-                 //   user.MailId = signUpModel.MailId;
-                   // user.MobileNo = signUpModel.MobileNo;
-                    user.Gender = signUpModel.Gender;
-                    user.Age = signUpModel.Age;
-                    user.MobileNo = signUpModel.MobileNo;
-                    user.City = signUpModel.City;
-                    accountContext.SaveChanges();
-                    TempData["Message"] = "User details updated successfully";
+                Account user = new Account();
+                user.MailId = accountEditViewModel.MailId;
+                    accountBL.EditUser(user);
+                    ViewBag.Message = "User details updated successfully";
+                    ModelState.Clear();
                     return RedirectToAction("UserDetails");
-                }
-            }
-            return View(user);
+           }
+           return View();             
         }
-        public ActionResult DeleteUser(int userId) //Delete
+        public ActionResult DeleteUser(AccountDeleteViewModel accountDeleteViewModel) //Delete
         {
-            AccountContext accountContext = new AccountContext();
-            Account user = accountContext.AccountDB.Find(userId);
-            accountContext.AccountDB.Remove(user);
-            accountContext.SaveChanges();
-            TempData["Message"] = "User updated successfully";
-            return RedirectToAction("Display");
+            Account account = new Account();
+            account.MailId = accountDeleteViewModel.MailId;
+            accountBL.DeleteUser(account);
+            return RedirectToAction(nameof(UserDetails));
+            //  AccountContext accountContext = new AccountContext();
+            //Account user = accountContext.AccountDB.Find(userId);
+            //accountContext.AccountDB.Remove(user);
+            //accountContext.SaveChanges();
+            //TempData["Message"] = "User updated successfully";
+            //return RedirectToAction("Display");
         }
     }
 }

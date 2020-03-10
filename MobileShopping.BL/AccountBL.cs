@@ -19,6 +19,18 @@ namespace MobileShopping.BL
         {
             return accountRepository.Login(user);
         }
+        public void EditUser(Account user)
+        {
+           accountRepository.UpdateUser(user);
+        }
+        public void DeleteUser(Account user)
+        {
+            accountRepository.DeleteUser(user);
+        }
+        public Account GetUserId(string mailId)
+        {
+            return accountRepository.GetUserId(mailId);
+        }
 
     }
 }
